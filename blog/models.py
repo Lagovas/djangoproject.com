@@ -11,6 +11,8 @@ from django.utils.translation import ugettext_lazy as _
 from django_hosts.resolvers import reverse
 from docutils.core import publish_parts
 
+import acra.django
+
 BLOG_DOCUTILS_SETTINGS = {
     'doctitle_xform': False,
     'initial_header_level': 3,
@@ -36,7 +38,7 @@ CONTENT_FORMAT_CHOICES = (
 
 
 class Entry(models.Model):
-    headline = models.CharField(max_length=200)
+    headline = acra.django.CharField(max_length=200)
     slug = models.SlugField(unique_for_date='pub_date')
     is_active = models.BooleanField(
         help_text=_(
@@ -54,11 +56,11 @@ class Entry(models.Model):
         ),
     )
     content_format = models.CharField(choices=CONTENT_FORMAT_CHOICES, max_length=50)
-    summary = models.TextField()
-    summary_html = models.TextField()
-    body = models.TextField()
-    body_html = models.TextField()
-    author = models.CharField(max_length=100)
+    summary = acra.django.TextField()
+    summary_html = acra.django.TextField()
+    body = acra.django.TextField()
+    body_html = acra.django.TextField()
+    author = acra.django.CharField(max_length=100)
 
     objects = EntryQuerySet.as_manager()
 

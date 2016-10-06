@@ -6,6 +6,8 @@ from django.dispatch import receiver
 from django.views.generic.dates import timezone_today
 from sorl.thumbnail import ImageField, get_thumbnail
 
+import acra.django
+
 SILVER_MEMBERSHIP = 1
 GOLD_MEMBERSHIP = 2
 PLATINUM_MEMBERSHIP = 3
@@ -19,7 +21,7 @@ CORPORATE_MEMBERSHIP_AMOUNTS = {
 
 class DeveloperMember(models.Model):
     name = models.CharField(max_length=250)
-    email = models.EmailField(unique=True)
+    email = acra.django.EmailField()
     member_since = models.DateField(default=timezone_today)
     member_until = models.DateField(null=True, blank=True)
     reason_for_leaving = models.TextField(blank=True)
@@ -73,8 +75,9 @@ class CorporateMember(models.Model):
     description = models.TextField(blank=True)
     url = models.URLField(verbose_name='URL')
     contact_name = models.CharField(max_length=250)
-    contact_email = models.EmailField()
-    billing_email = models.EmailField(blank=True, help_text='If different from contact email.',)
+    contact_email = acra.django.EmailField()
+    billing_email = acra.django.EmailField(
+        blank=True, help_text='If different from contact email.',)
     membership_level = models.IntegerField(choices=MEMBERSHIP_LEVELS)
     address = models.TextField(blank=True)
     django_usage = models.TextField(blank=True, help_text='Not displayed publicly.')

@@ -1,6 +1,7 @@
 # Settings for www.djangoproject.com
 import json
 import os
+from base64 import b64decode
 from pathlib import Path
 
 # Utilities
@@ -36,6 +37,7 @@ DATABASES = {
         'NAME': 'djangoproject',
         'USER': 'djangoproject',
         'HOST': SECRETS.get('db_host', ''),
+        'PORT': SECRETS.get('db_port', ''),
         'PASSWORD': SECRETS.get('db_password', ''),
     },
     'trac': {
@@ -43,6 +45,7 @@ DATABASES = {
         'NAME': 'code.djangoproject',
         'USER': 'code.djangoproject',
         'HOST': SECRETS.get('trac_db_host', ''),
+        'PORT': SECRETS.get('trac_db_port', ''),
         'PASSWORD': SECRETS.get('trac_db_password', ''),
     }
 }
@@ -259,3 +262,5 @@ TRAC_URL = "https://code.djangoproject.com/"
 
 # search settings
 ES_HOST = SECRETS.get('es_host', 'localhost:9200')
+
+ACRA_SERVER_PUBLIC_KEY = b64decode(SECRETS.get('acra_server_public_key'))

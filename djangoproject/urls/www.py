@@ -86,3 +86,6 @@ if settings.DEBUG:
     urlpatterns += [
         url(r'^m/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     ]
+    urlpatterns += [
+        url(r'^s/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+    ]
